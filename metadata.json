@@ -1,0 +1,8 @@
+{
+  "name": "Remix: en-ji indonesia",
+  "description": "Website pemasaran tas wanita modern masa kini oleh en-ji indonesia dengan fitur whatsapp admin, katalog interaktif, dan panel admin terintegrasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

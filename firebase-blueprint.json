@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "En-ji product item representing a bag in the catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique product ID" },
+        "name": { "type": "string", "description": "Name of the product" },
+        "description": { "type": "string", "description": "Long detailed description of the product" },
+        "price": { "type": "number", "description": "Price in Rupiah (IDR)" },
+        "image": { "type": "string", "description": "URL or base64 of the product image" },
+        "category": { "type": "string", "description": "Product category: Handbag, Shoulder Bag, Tote Bag, Crossbody" }
+      },
+      "required": ["id", "name", "description", "price", "image", "category"]
+    },
+    "BankAccount": {
+      "title": "BankAccount",
+      "description": "Bank account details for payment transfers",
+      "type": "object",
+      "properties": {
+        "bankName": { "type": "string" },
+        "accountNumber": { "type": "string" },
+        "accountHolder": { "type": "string" }
+      },
+      "required": ["bankName", "accountNumber", "accountHolder"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Global settings for the En-ji catalog application",
+      "type": "object",
+      "properties": {
+        "whatsappNumber": { "type": "string", "description": "WhatsApp number for ordering" },
+        "bankAccount": { "$ref": "#/entities/BankAccount", "description": "Bank transfer account" },
+        "adminPin": { "type": "string", "description": "Authentication PIN for admin operations" },
+        "heroImage": { "type": "string", "description": "Image URL of the hero banner" },
+        "heroFilters": { "type": "object", "description": "Image filters adjustment coordinates map" }
+      },
+      "required": ["whatsappNumber", "bankAccount", "adminPin"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of bag products in the catalog"
+    },
+    "/settings/{settingsId}": {
+      "schema": "AppSettings",
+      "description": "Global configuration document (such as 'global')"
+    }
+  }
+}

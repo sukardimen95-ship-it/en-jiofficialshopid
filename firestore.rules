@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isVerifiedEmail(email) {
+      return isSignedIn() && request.auth.token.email == email && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == "sukardimen95@gmail.com";
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Products collection security
+    match /products/{productId} {
+      allow read: if true; // public read for customers
+      allow create, update: if isValidId(productId) && isValidProduct(request.resource.data);
+      allow delete: if isValidId(productId);
+    }
+
+    // Settings collection security
+    match /settings/{settingsId} {
+      allow read: if true; // public read for settings
+      allow create, update: if isValidId(settingsId) && isValidSettings(request.resource.data);
+      allow delete: if isValidId(settingsId);
+    }
+
+    // Validation functions
+    function isValidProduct(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 200 &&
+             data.description is string && data.description.size() > 0 && data.description.size() <= 2000 &&
+             data.price is number && data.price > 0 && data.price < 100000000 &&
+             data.image is string && data.image.size() <= 10000000 &&
+             data.category is string && (data.category == "Handbag" || data.category == "Shoulder Bag" || data.category == "Tote Bag" || data.category == "Crossbody");
+    }
+
+    function isValidSettings(data) {
+      return data.whatsappNumber is string && data.whatsappNumber.size() <= 30 &&
+             data.adminPin is string && data.adminPin.size() <= 20 &&
+             data.bankAccount is map &&
+             data.bankAccount.bankName is string && data.bankAccount.bankName.size() <= 50 &&
+             data.bankAccount.accountNumber is string && data.bankAccount.accountNumber.size() <= 50 &&
+             data.bankAccount.accountHolder is string && data.bankAccount.accountHolder.size() <= 100 &&
+             (!('heroImage' in data) || (data.heroImage is string && data.heroImage.size() <= 10000000)) &&
+             (!('heroFilters' in data) || (data.heroFilters is map));
+    }
+  }
+}

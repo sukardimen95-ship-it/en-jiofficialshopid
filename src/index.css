@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+
+  --color-brand-50: #f0f9ff;
+  --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-300: #7dd3fc;
+  --color-brand-400: #38bdf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-700: #0369a1;
+  --color-brand-800: #075985;
+  --color-brand-900: #0c4a6e;
+}
+
+/* Base style resets and customizations */
+html, body {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  background-color: #fcfcfd;
+  color: #1e293b;
+}
+
+/* Customized thin premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Keyframe animations for WhatsApp floating bubble */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* --- PREMIUM SOPHISTICATED DARK MODE --- */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark, html.dark body {
+  background-color: #060913 !important; /* Premium deep obsidian base */
+  color: #f1f5f9 !important;
+}
+
+html.dark #root {
+  background-color: #060913;
+}
+
+/* Header/Navbar Premium Dark Blur */
+html.dark header {
+  background-color: rgba(6, 9, 19, 0.85) !important;
+  border-color: rgba(30, 41, 59, 0.6) !important;
+}
+
+/* Card Overrides */
+html.dark .bg-white {
+  background-color: #0d1222 !important; /* Polished dark card backing */
+  color: #f1f5f9 !important;
+}
+
+html.dark .border-sky-100,
+html.dark .border-sky-200,
+html.dark .border-sky-100\/40,
+html.dark .border-sky-100\/50,
+html.dark .border-sky-100\/60,
+html.dark .border-sky-100\/80 {
+  border-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+/* Text elements & Contrast levels */
+html.dark .text-slate-500,
+html.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-slate-800 {
+  color: #e2e8f0 !important;
+}
+
+html.dark .text-slate-900,
+html.dark .text-slate-950,
+html.dark .text-sky-950 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-sky-900 {
+  color: #38bdf8 !important; /* High contrast cyan/sky accent for optimal brand identity */
+}
+
+/* Badges and tags */
+html.dark span.bg-white\/90 {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  color: #38bdf8 !important;
+}
+
+html.dark .bg-sky-50\/50,
+html.dark .bg-[#ebf5fb],
+html.dark .bg-[#fafbfc],
+html.dark .bg-sky-50\/60,
+html.dark .bg-sky-100\/60 {
+  background-color: rgba(15, 23, 42, 0.7) !important;
+}
+
+html.dark .bg-sky-50 {
+  background-color: #0f172a !important;
+}
+
+html.dark .text-sky-800 {
+  color: #38bdf8 !important;
+}
+
+/* Input boxes & UI utilities */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+/* Modals & Sheet backdrop */
+html.dark .bg-white\/95 {
+  background-color: rgba(13, 18, 34, 0.96) !important;
+  border-color: #1e293b !important;
+}
+
+/* Glowing aesthetic backdrops */
+html.dark .bg-gradient-to-tr.from-white.via-sky-50\/60.to-white {
+  background-image: linear-gradient(to top right, #060913, #0f172a, #060913) !important;
+}
+
+html.dark .bg-gradient-to-tr.from-sky-50\/50.to-white {
+  background-image: linear-gradient(to top right, #0d1222, #060913) !important;
+}
+
+/* Hero elements contrast settings */
+html.dark .bg-sky-200\/30 {
+  background-color: rgba(14, 165, 233, 0.08) !important;
+}
+html.dark .bg-sky-100\/40 {
+  background-color: rgba(14, 165, 233, 0.05) !important;
+}
+
+/* Interactive elements default resets */
+html.dark button.bg-white {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+  border-color: #1e293b !important;
+}
+html.dark button.bg-white:hover {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+/* Floating widgets or admin toggles */
+html.dark .bg-amber-50 {
+  background-color: #1e1b4b !important;
+  color: #fbbf24 !important;
+  border-color: #312e81 !important;
+}
